@@ -149,3 +149,7 @@ Agent B workflow:
 1. Fetches open PRs via `gh pr list`.
 2. Retrieves metrics for each variant using `fetch_pr_events.sh`.
 3. Merges or closes PRs based on engagement data.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
