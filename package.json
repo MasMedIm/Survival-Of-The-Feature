@@ -1,0 +1,14 @@
+{
+  "name": "survival-of-the-feature-app",
+  "version": "1.0.0",
+  "description": "Local development environment for scroll tracker and QR redirect",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "body-parser": "^1.20.2",
+    "aws-sdk": "^2.1365.0"
+  }
+}

@@ -93,3 +93,35 @@ Now open one of your variant URLs in a browser, scroll around, and verify the sc
 
 ---
 _Happy experimenting!_ 🚀
+
+## Docker Environment
+
+You can run all of the project’s scripts and tools inside a Docker container.
+
+1. Build the Docker image:
+   ```bash
+   docker build -t survival-of-the-feature .
+   ```
+
+2. Start an interactive shell (loads your `.env`):
+   ```bash
+   docker run --rm -it \
+     --env-file .env \
+     -v "$(pwd)":/app \
+     survival-of-the-feature
+   ```
+
+Inside the container you can run:
+```bash
+./deploy_scroll_tracking.sh
+./deploy_variants_aws_cli.sh
+./deploy_qr_redirect.sh
+./test_scroll_tracking.sh
+./run_agent.sh
+```
+
+Alternatively, with Docker Compose:
+```bash
+docker-compose up -d --build
+docker-compose exec app bash
+```

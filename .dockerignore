@@ -1,0 +1,9 @@
+.git
+node_modules
+scroll_tracker/node_modules
+.env
+*.zip
+*.png
+test_response.json
+function.zip
+redirect_test.html

@@ -1,7 +1,8 @@
 ;(function(){
   if (!navigator.sendBeacon) return;
   // Tracking endpoint
-  const TRACK_URL = 'https://b9himymqn4.execute-api.us-west-1.amazonaws.com/Prod/track';
+  // Tracking endpoint: use current origin for local development
+  const TRACK_URL = window.location.origin + '/track';
   // Derive variant from path (/main/, /variant-1/, /variant-2/)
   const path = window.location.pathname.replace(/\/?$/, '');
   const parts = path.split('/').filter(Boolean);
