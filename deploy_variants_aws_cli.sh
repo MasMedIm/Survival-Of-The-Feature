@@ -13,8 +13,6 @@ fi
 
 export AWS_DEFAULT_REGION=${AWS_REGION}
 
-# Record current Git branch to restore later
-CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 
 # Bucket configuration
 BUCKET="survival-of-the-feature-variants-${AWS_ACCOUNT_ID}"
@@ -57,23 +55,19 @@ aws s3api put-bucket-policy --bucket "${BUCKET}" --policy "{
 }"
 
 echo "Uploading index.html for branches: main, variant-1, variant-2"
+# Upload each variant’s index.html (with injected tracker) and the tracking script
 for branch in main variant-1 variant-2; do
   echo "  - $branch"
-  git checkout "$branch"
-  # Inject scroll-tracker script tag before closing </body>
+  # Extract the branch's index.html from Git, inject the tracker snippet, and upload
+  TMP_ORIG=$(mktemp)
+  git show "${branch}:index.html" > "$TMP_ORIG"
   TMP_INDEX=$(mktemp)
-  sed '/<\/body>/i <script src="scroll-tracker.js"></script>' index.html > "$TMP_INDEX"
-  # Upload modified HTML
-  aws s3 cp "$TMP_INDEX" "s3://${BUCKET}/${branch}/index.html" \
-    --content-type text/html
-  rm "$TMP_INDEX"
-  # Upload scroll-tracker script
-  aws s3 cp scroll-tracker.js "s3://${BUCKET}/${branch}/scroll-tracker.js" \
-    --content-type application/javascript
+  awk '/<\/body>/{print "    <script src=\"scroll-tracker.js\"></script>"}1' "$TMP_ORIG" > "$TMP_INDEX"
+  aws s3 cp "$TMP_INDEX" "s3://${BUCKET}/${branch}/index.html" --content-type text/html
+  rm "$TMP_ORIG" "$TMP_INDEX"
+  # Upload the tracker script itself
+  aws s3 cp scroll-tracker.js "s3://${BUCKET}/${branch}/scroll-tracker.js" --content-type application/javascript
 done
-
-# Restore original branch
-git checkout "${CURRENT_BRANCH}"
 
 echo
 echo "Your variant URLs:"
