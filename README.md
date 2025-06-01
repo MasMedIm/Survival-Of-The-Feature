@@ -1,9 +1,11 @@
 # Survival of the Feature
 
+![Intro Image](intro-img.png)
+
+
 This project hosts three variants of a static web page (`main`, `variant-1`, `variant-2`) on Amazon S3 and tracks user scroll-depth for A/B testing or feature experiments via a serverless backend.
 
 ## Directory Structure
-```
 .
 ├── index.html             # Default variant HTML (main branch)
 ├── scroll-tracker.js      # Client-side scroll-depth tracking script
@@ -125,3 +127,36 @@ Alternatively, with Docker Compose:
 docker-compose up -d --build
 docker-compose exec app bash
 ```
+
+## Automated Feature Experimentation Agents
+
+This project includes two automated agents to streamline the feature experimentation workflow:
+
+### Agent A: Variation Generator
+Agent A generates new variations of the static web page (`index.html`) and creates pull requests for review.
+
+- See `instruction_a.md` for details.
+- To run Agent A:
+  ```bash
+  chmod +x run_agent_a.sh
+  ./run_agent_a.sh
+  ```
+
+Agent A workflow:
+1. Generates a modified `index.html` variant.
+2. Uses `create_pr.sh` to open a pull request against the `main` branch.
+
+### Agent B: Variation Evaluator
+Agent B evaluates open pull requests by fetching scroll-depth metrics and deciding which variants to merge or close.
+
+- See `instruction_b.md` for details.
+- To run Agent B:
+  ```bash
+  chmod +x run_agent_b.sh
+  ./run_agent_b.sh
+  ```
+
+Agent B workflow:
+1. Fetches open PRs via `gh pr list`.
+2. Retrieves metrics for each variant using `fetch_pr_events.sh`.
+3. Merges or closes PRs based on engagement data.
