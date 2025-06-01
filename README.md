@@ -2,7 +2,6 @@
 ![Intro Image](intro-img.png)
 
 
-This project hosts three variants of a static web page (`main`, `variant-1`, `variant-2`) on Amazon S3 and tracks user scroll-depth for A/B testing or feature experiments via a serverless backend.
 
 ## Automated Feature Experimentation Agents
 
