@@ -5,17 +5,6 @@
 
 This project hosts three variants of a static web page (`main`, `variant-1`, `variant-2`) on Amazon S3 and tracks user scroll-depth for A/B testing or feature experiments via a serverless backend.
 
-## Directory Structure
-.
-├── index.html             # Default variant HTML (main branch)
-├── scroll-tracker.js      # Client-side scroll-depth tracking script
-├── deploy_variants_aws_cli.sh  # Uploads each branch to S3 (index.html + scroll-tracker.js)
-├── deploy_qr_redirect.sh  # Builds a redirect page + QR code for random variant selection
-├── template.yaml          # AWS SAM template (API Gateway + Lambda + DynamoDB)
-├── deploy_scroll_tracking.sh  # Packages & deploys the SAM stack
-├── test_scroll_tracking.sh    # Tests the Lambda/API with sample payloads
-└── .env                   # Environment variables (AWS creds, region, bucket names)
-```
 
 ## What We Built
 
