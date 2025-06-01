@@ -1,0 +1,56 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: scroll-tracker – captures scroll-depth events and writes to DynamoDB
+
+Globals:
+  Function:
+    Timeout: 10
+
+Resources:
+  ScrollEventsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub scroll-events-${AWS::StackName}
+      AttributeDefinitions:
+        - AttributeName: sessionId
+          AttributeType: S
+        - AttributeName: ts
+          AttributeType: N
+      KeySchema:
+        - AttributeName: sessionId
+          KeyType: HASH
+        - AttributeName: ts
+          KeyType: RANGE
+      BillingMode: PAY_PER_REQUEST
+      TimeToLiveSpecification:
+        AttributeName: ttl
+        Enabled: true
+
+  ScrollTrackerFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ScrollTrackerFunction-${AWS::StackName}
+      Runtime: nodejs18.x
+      Handler: index.handler
+      CodeUri: scroll_tracker/
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref ScrollEventsTable
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref ScrollEventsTable
+      Events:
+        TrackApi:
+          Type: Api
+          Properties:
+            Path: /track
+            Method: post
+      Architectures:
+        - x86_64
+
+Outputs:
+  ApiUrl:
+    Description: "Invoke URL for POST /track"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/track"
+    Export:
+      Name: !Sub "ScrollTrackerApiUrl-${AWS::StackName}"

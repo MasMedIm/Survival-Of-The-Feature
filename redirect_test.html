@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Random Variant Redirect</title>
+  <script>
+    (function(){
+      var variants = [
+              "http://survival-of-the-feature-variants-672656625611.s3-website-us-west-1.amazonaws.com/main/",
+        "http://survival-of-the-feature-variants-672656625611.s3-website-us-west-1.amazonaws.com/variant-1/",
+        "http://survival-of-the-feature-variants-672656625611.s3-website-us-west-1.amazonaws.com/variant-2/"
+      ];
+      var pick = variants[Math.floor(Math.random()*variants.length)];
+      window.location.replace(pick);
+    })();
+  </script>
+  <noscript>
+    <meta http-equiv="refresh" content="0;url=http://survival-of-the-feature-variants-672656625611.s3-website-us-west-1.amazonaws.com/main/">
+  </noscript>
+</head>
+<body>
+  Redirecting… if nothing happens <a href="http://survival-of-the-feature-variants-672656625611.s3-website-us-west-1.amazonaws.com/main/">click here</a>.
+</body>
+</html>
