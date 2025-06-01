@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en" data-variant-id="1">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TaskMaster - Productivity Redefined</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-SZXxX4whJ79/GFf+M0gWjFQ5H9U7c3z3z3R9gCLqWd+Wh6LzyUKMtEOp6Q3rZx6p" crossorigin="anonymous"/>
+  <style>
+    /* Reset & Base */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Roboto', sans-serif; line-height: 1.6; color: #333; background: #f9f9f9; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    img { max-width: 100%; display: block; }
+
+    /* Header & Nav */
+    header { background: #fff; padding: 1rem 2rem; box-shadow: 0 2px 4px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
+    .nav-container { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; }
+    .logo { font-size: 1.5rem; font-weight: 700; color: #007BFF; }
+    nav ul { display: flex; gap: 1rem; }
+    nav li a { padding: 0.5rem 1rem; transition: background 0.3s; border-radius: 4px; }
+    nav li a:hover { background: rgba(0,123,255,0.1); }
+    .cta-button { background: #007BFF; color: #fff; padding: 0.75rem 1.5rem; border: none; border-radius: 4px; cursor: pointer; font-weight: 500; transition: background 0.3s; }
+    .cta-button:hover { background: #0056b3; }
+
+    /* Hero Section */
+    .hero { background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%); color: #fff; padding: 4rem 2rem; text-align: center; }
+    .hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+    .hero p { font-size: 1.125rem; margin-bottom: 2rem; max-width: 700px; margin-left: auto; margin-right: auto; }
+
+    /* Features */
+    .features { padding: 4rem 2rem; max-width: 1200px; margin: 0 auto; }
+    .features h2 { text-align: center; margin-bottom: 2rem; font-size: 2rem; }
+    .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
+    .feature-card { background: #fff; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); text-align: center; transition: transform 0.3s; }
+    .feature-card:hover { transform: translateY(-4px); }
+    .feature-card i { font-size: 2rem; color: #007BFF; margin-bottom: 1rem; }
+    .feature-card h3 { margin-bottom: 0.75rem; font-size: 1.25rem; }
+    .feature-card p { font-size: 0.95rem; color: #555; }
+
+    /* Screenshots Section */
+    .screenshots { background: #eef2f7; padding: 4rem 2rem; }
+    .screenshots h2 { text-align: center; margin-bottom: 2rem; font-size: 2rem; }
+    .screenshot-gallery { display: flex; gap: 1rem; overflow-x: auto; padding-bottom: 1rem; }
+    .screenshot-gallery img { border-radius: 8px; flex: 0 0 auto; width: 300px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+
+    /* Pricing */
+    .pricing { padding: 4rem 2rem; max-width: 1200px; margin: 0 auto; }
+    .pricing h2 { text-align: center; margin-bottom: 2rem; font-size: 2rem; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
+    .plan { background: #fff; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); text-align: center; display: flex; flex-direction: column; }
+    .plan h3 { font-size: 1.5rem; margin-bottom: 1rem; }
+    .plan-price { font-size: 2rem; font-weight: 700; margin-bottom: 1rem; }
+    .plan-features { flex-grow: 1; margin-bottom: 1.5rem; }
+    .plan-features li { margin-bottom: 0.5rem; }
+    .plan .cta-button { width: 100%; }
+
+    /* Testimonials */
+    .testimonials { background: #fff; padding: 4rem 2rem; }
+    .testimonials h2 { text-align: center; margin-bottom: 2rem; font-size: 2rem; }
+    .testimonial-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; max-width: 1200px; margin: 0 auto; }
+    .testimonial { background: #f1f5f9; padding: 1.5rem; border-radius: 8px; position: relative; }
+    .testimonial p { font-style: italic; margin-bottom: 1rem; }
+    .testimonial h4 { font-weight: 500; }
+
+    /* Footer */
+    footer { background: #182848; color: #fff; padding: 2rem; }
+    .footer-container { display: flex; flex-direction: column; align-items: center; max-width: 1200px; margin: 0 auto; }
+    .social-links a { color: #fff; margin: 0 0.5rem; font-size: 1.25rem; transition: color 0.3s; }
+    .social-links a:hover { color: #007BFF; }
+    .footer-note { margin-top: 1rem; font-size: 0.9rem; color: #ccc; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2rem; }
+      .hero p { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-container">
+      <div class="logo">TaskMaster</div>
+      <nav>
+        <ul>
+          <li><a href="#hero" class="trackable" data-action="nav-home">Home</a></li>
+          <li><a href="#features" class="trackable" data-action="nav-features">Features</a></li>
+          <li><a href="#pricing" class="trackable" data-action="nav-pricing">Pricing</a></li>
+          <li><a href="#contact" class="trackable" data-action="nav-contact">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="cta-button trackable" data-action="nav-signup">Get Started</button>
+    </div>
+  </header>
+
+  <section id="hero" class="hero">
+    <h1>Manage Your Tasks Effortlessly</h1>
+    <p>TaskMaster helps you stay organized, prioritize your work, and achieve more every day. Collaborate in real-time, set reminders, and visualize your progress with intuitive dashboards.</p>
+    <button class="cta-button trackable" data-action="hero-signup">Start Your Free Trial</button>
+  </section>
+
+  <section id="features" class="features">
+    <h2>Powerful Features</h2>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <i class="fas fa-tachometer-alt"></i>
+        <h3>Dashboard Insights</h3>
+        <p>Get a bird's-eye view of all your tasks with customizable dashboards and detailed analytics.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-users"></i>
+        <h3>Team Collaboration</h3>
+        <p>Work together seamlessly with shared boards, comments, and file attachments.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-bell"></i>
+        <h3>Smart Reminders</h3>
+        <p>Never miss a deadline with intelligent reminders that adapt to your workflow.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-mobile-alt"></i>
+        <h3>Mobile Access</h3>
+        <p>Stay productive on the go with fully-featured iOS and Android apps.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="screenshots">
+    <h2>App Screenshots</h2>
+    <div class="screenshot-gallery">
+      <img src="https://via.placeholder.com/300x600.png?text=Dashboard" alt="Dashboard Screenshot">
+      <img src="https://via.placeholder.com/300x600.png?text=Projects" alt="Projects Screenshot">
+      <img src="https://via.placeholder.com/300x600.png?text=Notifications" alt="Notifications Screenshot">
+    </div>
+  </section>
+
+  <section id="pricing" class="pricing">
+    <h2>Choose Your Plan</h2>
+    <div class="pricing-grid">
+      <div class="plan">
+        <h3>Basic</h3>
+        <div class="plan-price">$0<span>/mo</span></div>
+        <ul class="plan-features">
+          <li>Up to 3 Projects</li>
+          <li>Basic Analytics</li>
+          <li>Email Support</li>
+        </ul>
+        <button class="cta-button trackable" data-action="plan-basic">Get Started</button>
+      </div>
+      <div class="plan">
+        <h3>Pro</h3>
+        <div class="plan-price">$12<span>/mo</span></div>
+        <ul class="plan-features">
+          <li>Unlimited Projects</li>
+          <li>Advanced Analytics</li>
+          <li>Priority Support</li>
+        </ul>
+        <button class="cta-button trackable" data-action="plan-pro">Upgrade Now</button>
+      </div>
+      <div class="plan">
+        <h3>Enterprise</h3>
+        <div class="plan-price">Custom</div>
+        <ul class="plan-features">
+          <li>Everything in Pro</li>
+          <li>Dedicated Account Manager</li>
+          <li>Custom Integrations</li>
+        </ul>
+        <button class="cta-button trackable" data-action="plan-enterprise">Contact Sales</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonials">
+    <h2>What Our Users Say</h2>
+    <div class="testimonial-list">
+      <div class="testimonial">
+        <p>"TaskMaster transformed how our team collaborates. Deadlines are met, and communication has never been clearer."</p>
+        <h4>- Sarah L., Project Manager</h4>
+      </div>
+      <div class="testimonial">
+        <p>"I switched from multiple apps to TaskMaster and it's incredible how much time I save every day."</p>
+        <h4>- James T., Freelancer</h4>
+      </div>
+      <div class="testimonial">
+        <p>"The analytics dashboard gives me real insights into my work patterns and productivity."</p>
+        <h4>- Priya K., Entrepreneur</h4>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="footer-container">
+      <div class="social-links">
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+      <p class="footer-note">&copy; 2023 TaskMaster. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var buttons = document.querySelectorAll('.trackable');
+      buttons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          console.log('Tracking action:', btn.dataset.action);
+          // TODO: send tracking event to analytics endpoint
+        });
+      });
+    });
+  </script>
+</body>
+</html>
