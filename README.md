@@ -1,4 +1,3 @@
-# Survival of the Feature
 
 ![Intro Image](intro-img.png)
 
@@ -10,7 +9,7 @@ This project hosts three variants of a static web page (`main`, `variant-1`, `va
 This project includes two automated agents to streamline the feature experimentation workflow:
 
 ### Agent A: Variation Generator
-Agent A generates new variations of the static web page (`index.html`) and creates pull requests for review.
+Agent A generates new variations after analyzing the current repository. Here (`index.html`) and creates pull requests for review.
 
 - See `instruction_a.md` for details.
 - To run Agent A:
@@ -20,12 +19,14 @@ Agent A generates new variations of the static web page (`index.html`) and creat
   ```
 
 Agent A workflow:
+
+The workflow is flexible given what the reasoning model understands from the current code. In our example how what it does. 
+
 1. Generates a modified `index.html` variant.
 2. Uses `create_pr.sh` to open a pull request against the `main` branch.
 
 ### Agent B: Variation Evaluator
 Agent B evaluates open pull requests by fetching scroll-depth metrics and deciding which variants to merge or close.
-
 - See `instruction_b.md` for details.
 - To run Agent B:
   ```bash
