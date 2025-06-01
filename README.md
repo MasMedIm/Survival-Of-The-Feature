@@ -39,7 +39,8 @@ This project hosts three variants of a static web page (`main`, `variant-1`, `va
      - **Lambda Function** (`ScrollTrackerFunction-<stack>`) subscribed to `POST /track` on API Gateway.
    - **Scripts**:
      - `deploy_scroll_tracking.sh`: packages & deploys the SAM stack (requires `DEPLOY_S3_BUCKET` in `.env`).
-     - `test_scroll_tracking.sh`: invokes the Lambda directly (with logs) and via the API endpoint to verify data ingestion.
+   - `test_scroll_tracking.sh`: invokes the Lambda directly (with logs) and via the API endpoint to verify data ingestion.
+   - **Read events** endpoint `GET /events`: fetches all stored scroll events, optionally filterable by `?variant=` query param.
 
 4. **Client Instrumentation**
    - `scroll-tracker.js` is injected into each `index.html`.
@@ -47,6 +48,13 @@ This project hosts three variants of a static web page (`main`, `variant-1`, `va
    - Variant detection is done by parsing the URL path (`/main/`, `/variant-1/`, `/variant-2/`).
 
 ## Getting Started
+6. (Optional) Query captured events:
+   ```bash
+   # Fetch all events
+   curl https://<YOUR_EVENTS_API_URL>
+   # Fetch only main variant events
+   curl https://<YOUR_EVENTS_API_URL>?variant=main
+   ```
 
 1. Copy your AWS credentials and configuration into `.env`:
    ```ini

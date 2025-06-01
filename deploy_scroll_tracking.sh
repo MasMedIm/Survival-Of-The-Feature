@@ -61,3 +61,15 @@ curl -X POST "$API_URL" \
   -d '{"variant":"main","sessionId":"test-session","maxDepth":50,"ts":'"$(date +%s)"'}'
 
 echo; echo "Done."
+echo; echo "Retrieving Events API URL for GET /events"
+EVENTS_API_URL=$(aws cloudformation describe-stacks \
+  --stack-name "$STACK_NAME" \
+  --query 'Stacks[0].Outputs[?OutputKey==`EventsApiUrl`].OutputValue' \
+  --output text)
+echo "Events API endpoint: $EVENTS_API_URL"
+echo; echo "Testing GET all events"
+curl -s -w "\nHTTP status: %{http_code}\n" "$EVENTS_API_URL"
+echo; echo "Testing GET filtered by variant=main"
+curl -s -w "\nHTTP status: %{http_code}\n" "$EVENTS_API_URL?variant=main"
+echo
+echo "Done."

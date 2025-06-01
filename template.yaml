@@ -47,6 +47,25 @@ Resources:
             Method: post
       Architectures:
         - x86_64
+  ReadEventsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ReadEventsFunction-${AWS::StackName}
+      Runtime: nodejs18.x
+      Handler: read.handler
+      CodeUri: scroll_tracker/
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref ScrollEventsTable
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref ScrollEventsTable
+      Events:
+        GetEventsApi:
+          Type: Api
+          Properties:
+            Path: /events
+            Method: get
 
 Outputs:
   ApiUrl:
@@ -54,3 +73,8 @@ Outputs:
     Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/track"
     Export:
       Name: !Sub "ScrollTrackerApiUrl-${AWS::StackName}"
+  EventsApiUrl:
+    Description: "Invoke URL for GET /events"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/events"
+    Export:
+      Name: !Sub "ScrollTrackerEventsApiUrl-${AWS::StackName}"

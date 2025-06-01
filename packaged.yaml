@@ -31,7 +31,7 @@ Resources:
         Fn::Sub: ScrollTrackerFunction-${AWS::StackName}
       Runtime: nodejs18.x
       Handler: index.handler
-      CodeUri: s3://survivalofthefeature/e5a4d170b2c221460693f8919a724069
+      CodeUri: s3://survivalofthefeature/28bf01a91c6cf9e45b294dd31541f5f0
       Environment:
         Variables:
           TABLE_NAME:
@@ -48,6 +48,28 @@ Resources:
             Method: post
       Architectures:
       - x86_64
+  ReadEventsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName:
+        Fn::Sub: ReadEventsFunction-${AWS::StackName}
+      Runtime: nodejs18.x
+      Handler: read.handler
+      CodeUri: s3://survivalofthefeature/28bf01a91c6cf9e45b294dd31541f5f0
+      Environment:
+        Variables:
+          TABLE_NAME:
+            Ref: ScrollEventsTable
+      Policies:
+      - DynamoDBReadPolicy:
+          TableName:
+            Ref: ScrollEventsTable
+      Events:
+        GetEventsApi:
+          Type: Api
+          Properties:
+            Path: /events
+            Method: get
 Outputs:
   ApiUrl:
     Description: Invoke URL for POST /track
@@ -56,3 +78,10 @@ Outputs:
     Export:
       Name:
         Fn::Sub: ScrollTrackerApiUrl-${AWS::StackName}
+  EventsApiUrl:
+    Description: Invoke URL for GET /events
+    Value:
+      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/events
+    Export:
+      Name:
+        Fn::Sub: ScrollTrackerEventsApiUrl-${AWS::StackName}
